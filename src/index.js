@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { compose, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import * as serviceWorker from './serviceWorker';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import rootReducer from './modules';
+import reactDom from 'react-dom';
 
-ReactDOM.render(
-  <React.StrictMode>
+const store = createStore(rootReducer, composeWithDevTools());
+
+reactDom.render(
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById('root'),
 );
+serviceWorker.unregister();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
